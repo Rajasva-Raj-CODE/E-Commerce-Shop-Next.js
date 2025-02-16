@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import SearchBox from '../Helper/SearchBox'
-import { HeartIcon } from 'lucide-react'
+import { HeartIcon, UserIcon } from 'lucide-react'
 import ShoppingCart from '../Helper/ShoppingCart'
 
 const Nav = () => {
@@ -16,6 +16,7 @@ const Nav = () => {
          <SearchBox />
          <HeartIcon size={26} cursor={'pointer'}/>
          <ShoppingCart />
+         <UserIcon size={26} cursor={'pointer'}/>
         </div>
         </div>
     </div>
