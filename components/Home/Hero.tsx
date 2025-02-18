@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from '../ui/button'
+import Image from 'next/image'
 
 const Hero = () => {
     return (
@@ -12,11 +13,13 @@ const Hero = () => {
                     </h1>
                     <p className='text-sm md:text-base lg:text-lg text-black text-opacity-70 mt-4'>Don't miss out on our biggest sale of the season! Grab your favorite products at unbeatable prices and enjoy massive discounts of up to 60% off. Shop now while stocks last!</p>
                     <div className='flex items-center space-x-4 mt-6'>
-                   <Button size={'lg'} className='bg-blue-700'>Shop Now</Button>
-                   <Button size={'lg'} >Explor More</Button>
+                        <Button size={'lg'} className='bg-blue-700'>Shop Now</Button>
+                        <Button size={'lg'} >Explor More</Button>
                     </div>
                 </div>
-
+                <div className='hidden lg:block'>
+                    <Image src="/images/hero.svg" alt="hero" width={600} height={600} className='lg:h-[50%] lg:w-[50%] xl:h-[80%] xl:w-[80%]' />
+                </div>
             </div>
         </div>
     )
