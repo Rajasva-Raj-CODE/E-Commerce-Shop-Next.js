@@ -6,8 +6,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-@layer base {
-  :root {
-    --radius: 0.5rem;
+@layer components {
+  .footer_title {
+    @apply text-xl mb-6 text-black;
+  }
+  .footer_link {
+    @apply text-[15px] text-black opacity-90 mb-4 w-fit cursor-pointer hover:text-yellow-600;
   }
 }
