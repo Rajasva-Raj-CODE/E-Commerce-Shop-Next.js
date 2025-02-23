@@ -5,6 +5,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItem } from '@/store/cartSlice'
+import { RootState } from '@/store/store'
 
 type Props = {
     product: Product
@@ -14,6 +17,13 @@ const ProductCard = ({ product }: Props) => {
 
     const num = Math.round(product.rating.rate)
     const ratingArray = new Array(num).fill(0)
+    
+    const dispatch = useDispatch()
+
+    const addToCartHandler = (product: Product) => {
+        dispatch(addItem(product))
+    }
+
     return (
         <div className='p-4'>
             <div className='w-[200px] h-[150px]'>
@@ -25,7 +35,7 @@ const ProductCard = ({ product }: Props) => {
             </Link>
             <div className='flex items-center '>
                 {ratingArray.map((star) => {
-                    return <StarIcon key={Math.random()*1000} size={16} fill='yellow' className='text-yellow-500' />
+                    return <StarIcon key={Math.random() * 1000} size={16} fill='yellow' className='text-yellow-500' />
                 })}
             </div>
             <div className='flex mt-2 items-center  space-x-2'>
@@ -33,11 +43,11 @@ const ProductCard = ({ product }: Props) => {
                 <p className='text-black text-lg opacity-80 font-bold'>{`₹${product.price.toFixed(2)}`}</p>
             </div>
             <div className='mt-4 flex items-center space-x-2'>
-                <Button size={"icon"}>
-                    <ShoppingBag size={18}/>
+                <Button size={"icon"} onClick={() => addToCartHandler(product)}>
+                    <ShoppingBag size={18} />
                 </Button>
                 <Button size={"icon"} className='bg-red-500 text-white'>
-                    <Heart size={18}/>
+                    <Heart size={18} />
                 </Button>
             </div>
         </div>
