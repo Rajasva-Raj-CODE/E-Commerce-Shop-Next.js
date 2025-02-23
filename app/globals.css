@@ -14,3 +14,7 @@ body {
     @apply text-[15px] text-black opacity-90 mb-4 w-fit cursor-pointer hover:text-yellow-600;
   }
 }
+
+
+
+@layer base {}
