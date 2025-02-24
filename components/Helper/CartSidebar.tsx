@@ -1,13 +1,21 @@
-import { CartItem } from '@/store/cartSlice'
+import { addItem, CartItem, removeItem } from '@/store/cartSlice'
 import Image from 'next/image'
 import React from 'react'
 import { Button } from '../ui/button'
+import Link from 'next/link'
+import { SheetClose } from '../ui/sheet'
+import { useDispatch } from 'react-redux'
 
 type Props = {
     items: CartItem[]
 }
 
 const CartSidebar = ({ items }: Props) => {
+
+    const dispatch = useDispatch()
+    const addCartHandler = (item: CartItem) => dispatch(addItem(item))
+
+    const removeCartHandler = (id: number) => dispatch(removeItem({ id }))
 
     return (
         <div className='mt-6 h-full mb-6'>
@@ -19,7 +27,7 @@ const CartSidebar = ({ items }: Props) => {
                     <Image src="/images/cart.svg" alt="empty-cart" width={200} height={200} className='object-cover mx-auto' />
                     <h1 className='text-2xl font-semibold mt-8'>Your cart is empty</h1>
                 </div>
-            )}
+            )} 
             {/* if there is cart items */}
             {items.length > 0 && (
                 <div>
@@ -38,10 +46,10 @@ const CartSidebar = ({ items }: Props) => {
                                 <h1 className='text-base mb-2 font-bold'>Quantity : {item?.quantity}</h1>
                                 {/* Two buttons one for remove and one for add to cart */}
                                 <div className='flex items-center space-x-4'>
-                                    <Button size={"sm"} variant={"destructive"} className=''>
+                                    <Button onClick={() => { removeCartHandler(item.id) }} size={"sm"} variant={"destructive"} className=''>
                                         Remove
                                     </Button>
-                                    <Button size={"sm"} variant={"default"} className=''>
+                                    <Button size={"sm"} variant={"default"} onClick={() => { addCartHandler(item) }}>
                                         Add
                                     </Button>
                                 </div>
@@ -49,7 +57,13 @@ const CartSidebar = ({ items }: Props) => {
                         </div>
                     })}
 
-                    
+                    <Link href="/cart">
+                        <SheetClose>
+                            <Button className='w-full mt-6 mb-6'>
+                                View All Cart
+                            </Button>
+                        </SheetClose>
+                    </Link>
 
 
                 </div>
