@@ -40,7 +40,7 @@ const Cart = () => {
     }
 
     //handle payement success
-    const handleSuccess = (details: any) => {
+    const handleSuccess = () => {
         router.push('/success')
         dispatch(clearCart());
     }
@@ -69,7 +69,7 @@ const Cart = () => {
                         {items.map((item) => {
                             return <div className='flex pb-6 mt-2 p-5 border-b-[1.5px] border-opacity-25 border-gray-700 items-center space-x-10'>
                                 <div>
-                                    <Image src={item.image} alt={item.title} width={180} height={180} className='' />
+                                    <Image src={item.image} alt={item.title} width={180} height={180} />
                                 </div>
                                 <div>
                                     <h1 className='md:text-xl text-base font-bold text-black'>{item.title}</h1>
@@ -77,7 +77,7 @@ const Cart = () => {
                                     <h1 className='md:text-2xl text-lg font-bold text-blue-950'> ₹{item.price.toFixed(2)}</h1>
                                     <h1 className='md:text-lg text-sm font-semibold'>Quantity : {item.quantity}</h1>
                                     <div className='flex items-center space-x-2 mt-4'>
-                                        <Button onClick={() => { addItemHandler(item) }} className=''>
+                                        <Button onClick={() => { addItemHandler(item) }}>
                                             Add More
                                         </Button>
                                         <Button variant={"destructive"} onClick={() => { removeItemHandler(item.id) }}>
