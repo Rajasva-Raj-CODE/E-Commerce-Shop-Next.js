@@ -1,11 +1,15 @@
 "use client"
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { useUser } from '@clerk/nextjs'
+import { addItem, CartItem, removeItem } from '@/store/cartSlice'
 const Cart = () => {
+
+    const dispatch = useDispatch()
 
     // Get our cart items from the store
     const items = useSelector((state: RootState) => state.cart.items)
@@ -18,7 +22,19 @@ const Cart = () => {
     // Calculate total price with vat
     const totalPriceWithVat = (+totalPrice + +vat).toFixed(2)
 
-    console.log({ items, totalQuantity, totalPrice, vat, totalPriceWithVat })
+    //Get auth user
+    const { user } = useUser()
+
+    //add item
+    const addItemHandler = (item: CartItem) => {
+        dispatch(addItem(item))
+    }
+
+    //remove item
+    const removeItemHandler = (id: number) => {
+        dispatch(removeItem({ id }))
+    }
+
 
     return (
         <div className='mt-8 min-h-[60vh]'>
@@ -51,10 +67,10 @@ const Cart = () => {
                                     <h1 className='md:text-2xl text-lg font-bold text-blue-950'> ₹{item.price.toFixed(2)}</h1>
                                     <h1 className='md:text-lg text-sm font-semibold'>Quantity : {item.quantity}</h1>
                                     <div className='flex items-center space-x-2 mt-4'>
-                                        <Button onClick={() => { }} className=''>
+                                        <Button onClick={() => { addItemHandler(item) }} className=''>
                                             Add More
                                         </Button>
-                                        <Button variant={"destructive"} onClick={() => { }}>
+                                        <Button variant={"destructive"} onClick={() => { removeItemHandler(item.id) }}>
                                             Remove
                                         </Button>
                                     </div>
@@ -64,6 +80,43 @@ const Cart = () => {
                         })}
                     </div>
                     {/* cart summary */}
+                    <div className='xl:col-span-2'>
+                        <div className='bg-indigo-950 sticky top-[25vh] p-6 rounded-lg'>
+                            <h1 className='text-center mt-8 mb-8 text-white text-3xl font-semibold '>Summary</h1>
+                            <div className='w-full h-[1.2px] bg-white bg-opacity-20'></div>
+                            <div className='flex mt-4 text-xl uppercase font-semibold text-white items-center justify-between'>
+                                <span>Subtotal</span>
+                                <span>₹{totalPrice}</span>
+                            </div>
+                            <div className='flex mt-10 mb-10 text-xl uppercase font-semibold text-white items-center justify-between'>
+                                <span>VAT</span>
+                                <span>₹{vat}</span>
+                            </div>
+                            <div className='flex  mb-6 text-xl uppercase font-semibold text-white items-center justify-between'>
+                                <span>Shipping</span>
+                                <span>FREE</span>
+                            </div>
+                            <div className='w-full h-[1.2px] bg-white bg-opacity-20'></div>
+                            <div className='flex mt-6  mb-6 text-xl uppercase font-semibold text-white items-center justify-between'>
+                                <span>Total</span>
+                                <span>₹{totalPriceWithVat}</span>
+                            </div>
+                            {!user && (
+                                <Link href="/sign-in">
+                                    <Button className='bg-orange-500 w-full'>
+                                        Sign In to checkout
+                                    </Button>
+                                </Link>
+                            )}
+                            {user && (
+
+                                <Button className='bg-orange-500 w-full'>
+                                    Paypal
+                                </Button>
+
+                            )}
+                        </div>
+                    </div>
                 </div>
             )}
         </div>
