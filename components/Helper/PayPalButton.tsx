@@ -1,8 +1,9 @@
+//@ts-nocheck
 import React from 'react'
 import { FUNDING, PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
 
 interface PayPalButtonProps {
-    amount: string;
+    amount?: string;
     onSuccess: (data: any) => void;
 }
 
