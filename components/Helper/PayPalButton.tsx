@@ -1,4 +1,3 @@
-//@ts-nocheck
 import React from 'react'
 import { FUNDING, PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
 
