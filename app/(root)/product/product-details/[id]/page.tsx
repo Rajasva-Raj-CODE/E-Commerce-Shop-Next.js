@@ -7,7 +7,7 @@ import AddToCart from './add-cart';
 import ProductCard from '@/components/Home/ProductCard';
 
 const ProductDetails = async ({ params }: { params: { id: string } }) => {
-    const id = params.id;
+    const { id } = await Promise.resolve(params); // Ensure params is awaited
     const singleProduct: Product = await getSingleProduct(id)
     const relatedProducts: Product[] = await getProductsByCategory(singleProduct.category)
     const num = Math.round(singleProduct?.rating?.rate)
@@ -26,7 +26,7 @@ const ProductDetails = async ({ params }: { params: { id: string } }) => {
                     {/* rating */}
                     <div className='mt-2 flex items-center space-x-2'>
                         <div className='flex items-center'>
-                            {StarArray.map((star) => {
+                            {StarArray.map(() => {
                                 return <StarIcon key={Math.random() * 5000} size={20} fill='yellow' className='text-yellow-500' />
                             })}
                         </div>

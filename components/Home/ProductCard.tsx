@@ -5,9 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { Button } from '../ui/button'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch} from 'react-redux'
 import { addItem } from '@/store/cartSlice'
-import { RootState } from '@/store/store'
 import { toast } from "sonner"
 
 
@@ -37,7 +36,7 @@ const ProductCard = ({ product }: Props) => {
                 <h1 className='mt-2 text-lg cursor-pointer hover:text-blue-900 transition-all  hover:underline  sm:w-full sm:truncate font-semibold text-black'>{product.title}</h1>
             </Link>
             <div className='flex items-center '>
-                {ratingArray.map((star) => {
+                {ratingArray.map(() => {
                     return <StarIcon key={Math.random() * 1000} size={16} fill='yellow' className='text-yellow-500' />
                 })}
             </div>
