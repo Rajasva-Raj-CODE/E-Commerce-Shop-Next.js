@@ -6,9 +6,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { useUser } from '@clerk/nextjs'
-import { addItem, CartItem, removeItem } from '@/store/cartSlice'
+import { addItem, CartItem, clearCart, removeItem } from '@/store/cartSlice'
+import PayPalButton from '@/components/Helper/PayPalButton'
+import { useRouter } from 'next/navigation'
 const Cart = () => {
 
+   //router
+    const router = useRouter()
     const dispatch = useDispatch()
 
     // Get our cart items from the store
@@ -33,6 +37,12 @@ const Cart = () => {
     //remove item
     const removeItemHandler = (id: number) => {
         dispatch(removeItem({ id }))
+    }
+
+    //handle payement success
+    const handleSuccess = (details: any) => {
+        router.push('/success')
+        dispatch(clearCart());
     }
 
 
@@ -110,9 +120,7 @@ const Cart = () => {
                             )}
                             {user && (
 
-                                <Button className='bg-orange-500 w-full'>
-                                    Paypal
-                                </Button>
+                             <PayPalButton amount={totalPriceWithVat} onSuccess={handleSuccess} />
 
                             )}
                         </div>
