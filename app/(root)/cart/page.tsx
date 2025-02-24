@@ -66,10 +66,10 @@ const Cart = () => {
                     {/* Cart items */}
                     <div className='rounded-lg shadow-md overflow-hidden xl:col-span-4'>
                         <h1 className='p-4 text-xl sm:text-2xl md:text-3xl font-bold text-white bg-blue-700'>Your Cart ({totalQuantity} Item) </h1>
-                        {items.map((item) => {
+                        {items.map((item,index) => {
                             return <div className='flex pb-6 mt-2 p-5 border-b-[1.5px] border-opacity-25 border-gray-700 items-center space-x-10'>
                                 <div>
-                                    <Image src={item.image} alt={item.title} width={180} height={180} />
+                                    <Image key={index} src={item.image} alt={item.title} width={180} height={180} />
                                 </div>
                                 <div>
                                     <h1 className='md:text-xl text-base font-bold text-black'>{item.title}</h1>
